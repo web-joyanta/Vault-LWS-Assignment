@@ -1,0 +1,74 @@
+[
+  {
+    "id": "1",
+    "url": "https://facebook.com",
+    "color": "#3b82f6",
+    "category": "Social",
+    "username": "john.doe@email.com",
+    "password": "password123",
+    "createdAt": "2024-01-15"
+  },
+  {
+    "id": "2",
+    "url": "https://youtube.com",
+    "color": "#ef4444",
+    "category": "Video",
+    "username": "myaccount",
+    "password": "youtube2024",
+    "createdAt": "2024-02-20"
+  },
+  {
+    "id": "3",
+    "url": "https://dribbble.com",
+    "color": "#ec4899",
+    "category": "Design",
+    "username": "designer_pro",
+    "password": "design123",
+    "createdAt": "2024-03-10"
+  },
+  {
+    "id": "4",
+    "url": "https://twitch.tv",
+    "color": "#a855f7",
+    "category": "Streaming",
+    "username": "streamer_123",
+    "password": "stream456",
+    "createdAt": "2024-04-05"
+  },
+  {
+    "id": "5",
+    "url": "https://github.com",
+    "color": "#6b7280",
+    "category": "Productivity",
+    "username": "devuser",
+    "password": "github789",
+    "createdAt": "2024-05-12"
+  },
+  {
+    "id": "6",
+    "url": "https://netflix.com",
+    "color": "#dc2626",
+    "category": "Entertainment",
+    "username": "user@email.com",
+    "password": "netflix321",
+    "createdAt": "2024-06-18"
+  },
+  {
+    "id": "7",
+    "url": "https://amazon.com",
+    "color": "#eab308",
+    "category": "Shopping",
+    "username": "shopper@email.com",
+    "password": "amazon654",
+    "createdAt": "2024-07-22"
+  },
+  {
+    "id": "8",
+    "url": "https://spotify.com",
+    "color": "#22c55e",
+    "category": "Music",
+    "username": "musiclover",
+    "password": "spotify987",
+    "createdAt": "2024-08-30"
+  }
+]
