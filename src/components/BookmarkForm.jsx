@@ -1,8 +1,35 @@
+import { useState } from "react";
 import ActionButton from "./bookmark/ActionButton";
 import BookmarkInput from "./bookmark/BookmarkInput";
 import BookmarkUserInput from "./bookmark/BookmarkUserInput";
 
 const BookmarkForm = () => {
+    
+    const getCurrentDate = () => {
+        const date = new Date();
+        return date.toISOString().split("T")[0];
+    };
+
+    const [bookmark, setBookmark] = useState({
+        id: crypto.randomUUID(),
+        url: "",
+        color: "#3b82f6",
+        category: "",
+        username: "",
+        password: "",
+        createdAt: getCurrentDate(),
+    })
+
+    const handleChange = (e) => {
+        const name = e.target.name;
+        let value = (e.target.value);
+        console.log(value);
+
+        setBookmark({
+            ...bookmark,
+            [name]: value,
+        })
+    }
     return (
         <div className="max-w-7xl mx-auto mt-8 px-4">
             <form
@@ -22,8 +49,8 @@ const BookmarkForm = () => {
                     </p>
                 </div>
                 <div className="space-y-6">
-                    <BookmarkInput />
-                    <BookmarkUserInput />
+                    <BookmarkInput bookmark={bookmark} handleChange={handleChange} />
+                    <BookmarkUserInput bookmark={bookmark} handleChange={handleChange} />
                 </div>
                 <ActionButton />
             </form>

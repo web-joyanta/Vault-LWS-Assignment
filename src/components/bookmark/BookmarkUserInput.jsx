@@ -1,5 +1,5 @@
 
-const BookmarkUserInput = () => {
+const BookmarkUserInput = ({ bookmark, handleChange }) => {
     return (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* <!-- Username Input --> */}
@@ -13,8 +13,11 @@ const BookmarkUserInput = () => {
                 </span>
                 <input
                     type="text"
+                    value={bookmark.username}
+                    onChange={handleChange}
                     placeholder="Enter username"
                     className="w-full bg-transparent text-base text-white placeholder:text-neutral-500 focus:outline-none"
+                    required
                 />
                 <span className="text-xs text-neutral-500"
                 >Use workspace or personal handle.</span
@@ -32,8 +35,11 @@ const BookmarkUserInput = () => {
                 </span>
                 <input
                     type="password"
+                    value={bookmark.password}
+                    onChange={handleChange}
                     placeholder="Enter password"
                     className="w-full bg-transparent text-base text-white placeholder:text-neutral-500 focus:outline-none"
+                    required
                 />
                 <span className="text-xs text-neutral-500"
                 >Choose at least 6 characters.</span

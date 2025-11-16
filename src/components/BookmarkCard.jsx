@@ -3,6 +3,9 @@ import { useState } from 'react';
 const BookmarkCard = ({ data }) => {
     const { url, color, category, username, password } = data;
     const [showPassword, setShowPassword] = useState(false);
+    const [bookmarkData, setBookmarkData] = useState({
+        
+    })
 
     function parseUrl(url) {
         const clean = url.replace(/^https?:\/\//, '');

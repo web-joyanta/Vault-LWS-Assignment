@@ -1,5 +1,5 @@
 
-const BookmarkInput = () => {
+const BookmarkInput = ({ bookmark, handleChange }) => {
     return (
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {/* <!-- Website URL Input --> */}
@@ -13,8 +13,12 @@ const BookmarkInput = () => {
                 </span>
                 <input
                     type="url"
+                    name="url"
+                    value={bookmark.url}
+                    onChange={handleChange}
                     placeholder="https://example.com"
                     className="w-full bg-transparent text-base text-white placeholder:text-neutral-500 focus:outline-none"
+                    required
                 />
                 <span className="text-xs text-neutral-500"
                 >Include https:// for best results.</span
@@ -39,8 +43,11 @@ const BookmarkInput = () => {
                     </div>
                     <input
                         type="color"
-                        value="#3b82f6"
+                        name="color"
+                        value={bookmark.color}
+                        onChange={handleChange}
                         className="h-12 w-12 cursor-pointer rounded-full border border-neutral-700 bg-neutral-800 p-1 shadow-inner shadow-black/50"
+                        required
                     />
                 </div>
                 <div
@@ -64,34 +71,34 @@ const BookmarkInput = () => {
                 >
                     Category
                 </span>
-                <select
-                    className="w-full bg-transparent text-base text-white outline-none"
+                <select name="category" value={bookmark.category} onChange={handleChange}
+                    className="w-full bg-transparent text-base text-white outline-none" required
                 >
-                    <option className="bg-neutral-900 text-white">
+                    <option value="" className="bg-neutral-900 text-white">
                         Select category
                     </option>
-                    <option className="bg-neutral-900 text-white">
+                    <option value="social" className="bg-neutral-900 text-white">
                         Social
                     </option>
-                    <option className="bg-neutral-900 text-white">
+                    <option value="video" className="bg-neutral-900 text-white">
                         Video
                     </option>
-                    <option className="bg-neutral-900 text-white">
+                    <option value="design" className="bg-neutral-900 text-white">
                         Design
                     </option>
-                    <option className="bg-neutral-900 text-white">
+                    <option value="streaming" className="bg-neutral-900 text-white">
                         Streaming
                     </option>
-                    <option className="bg-neutral-900 text-white">
+                    <option value="productivity" className="bg-neutral-900 text-white">
                         Productivity
                     </option>
-                    <option className="bg-neutral-900 text-white">
+                    <option value="entertainment" className="bg-neutral-900 text-white">
                         Entertainment
                     </option>
-                    <option className="bg-neutral-900 text-white">
+                    <option value="shopping" className="bg-neutral-900 text-white">
                         Shopping
                     </option>
-                    <option className="bg-neutral-900 text-white">
+                    <option value="music" className="bg-neutral-900 text-white">
                         Music
                     </option>
                 </select>
