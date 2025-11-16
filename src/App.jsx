@@ -1,14 +1,15 @@
-import { useState } from 'react'
-import BookmarkForm from './components/BookmarkForm'
-import BookmarkGrid from './components/BookmarkGrid'
-import Footer from './components/Footer'
-import Header from './components/Header'
-import SearchAndSort from './components/SearchAndSort'
-import bookmarkFormData from './data/BookmarkData.json'
-
+import { useState } from 'react';
+import BookmarkForm from './components/BookmarkForm';
+import BookmarkGrid from './components/BookmarkGrid';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import NotFound from './components/NotFound';
+import SearchAndSort from './components/SearchAndSort';
+import bookmarkFormData from './data/BookmarkData.json';
 
 function App() {
   const [formData, setFormData] = useState(bookmarkFormData);
+  const [searchTerm, setSearchTerm] = useState("");
   const [errors, setErrors] = useState({
     url: "",
     category: "",
@@ -36,7 +37,17 @@ function App() {
     }
 
     setFormData([...formData, newBookMart]);
-  }
+    setErrors({ url: "", category: "", username: "", password: "" });
+  };
+
+  const filteredBookmarks = formData.filter((item) => {
+    if (!searchTerm.trim()) return true;
+    const lower = searchTerm.toLowerCase();
+    return (
+      (item.name && item.name.toLowerCase().includes(lower)) ||
+      (item.url && item.url.toLowerCase().includes(lower))
+    );
+  });
 
   return (
     <>
@@ -44,13 +55,17 @@ function App() {
       <BookmarkForm handleAddBookmark={handleAddBookmark} errors={errors} setErrors={setErrors} />
       <main className="p-8">
         <div className="max-w-7xl mx-auto space-y-10 px-4">
-          <SearchAndSort />
-          <BookmarkGrid formData={formData} />
+          <SearchAndSort setSearchTerm={setSearchTerm} />
+          {filteredBookmarks.length > 0 ? (
+            <BookmarkGrid formData={filteredBookmarks} />
+          ) : (
+            <NotFound />
+          )}
         </div>
       </main>
       <Footer />
     </>
-  )
+  );
 }
 
 export default App;
