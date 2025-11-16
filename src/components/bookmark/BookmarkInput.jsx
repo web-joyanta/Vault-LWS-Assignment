@@ -1,5 +1,5 @@
 
-const BookmarkInput = ({ bookmark, handleChange }) => {
+const BookmarkInput = ({ bookmark, handleChange, errors }) => {
     return (
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {/* <!-- Website URL Input --> */}
@@ -14,15 +14,15 @@ const BookmarkInput = ({ bookmark, handleChange }) => {
                 <input
                     type="url"
                     name="url"
+                    required
                     value={bookmark.url}
                     onChange={handleChange}
                     placeholder="https://example.com"
                     className="w-full bg-transparent text-base text-white placeholder:text-neutral-500 focus:outline-none"
-                    required
+
                 />
-                <span className="text-xs text-neutral-500"
-                >Include https:// for best results.</span
-                >
+                {errors.url ? <p className="text-red-400 text-sm">{errors.url}</p> : <span className="text-xs text-neutral-500"
+                >Include https:// for best results.</span>}
             </label>
 
             {/* <!-- Color Picker --> */}
@@ -44,6 +44,7 @@ const BookmarkInput = ({ bookmark, handleChange }) => {
                     <input
                         type="color"
                         name="color"
+                        required
                         value={bookmark.color}
                         onChange={handleChange}
                         className="h-12 w-12 cursor-pointer rounded-full border border-neutral-700 bg-neutral-800 p-1 shadow-inner shadow-black/50"
@@ -66,13 +67,11 @@ const BookmarkInput = ({ bookmark, handleChange }) => {
             <label
                 className="flex flex-col gap-3 rounded-2xl border border-neutral-800 bg-neutral-900/60 p-5 text-sm transition focus-within:border-blue-500 focus-within:bg-neutral-900 focus-within:shadow-lg focus-within:shadow-blue-500/10"
             >
-                <span
-                    className="text-xs font-semibold uppercase tracking-wider text-neutral-400"
-                >
+                <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
                     Category
                 </span>
-                <select name="category" value={bookmark.category} onChange={handleChange}
-                    className="w-full bg-transparent text-base text-white outline-none" required
+                <select name="category" value={bookmark.category} required onChange={handleChange}
+                    className="w-full bg-transparent text-base text-white outline-none"
                 >
                     <option value="" className="bg-neutral-900 text-white">
                         Select category
@@ -102,9 +101,9 @@ const BookmarkInput = ({ bookmark, handleChange }) => {
                         Music
                     </option>
                 </select>
-                <span className="text-xs text-neutral-500">
+                {errors.category ? <p className="text-red-400 text-sm">{errors.category}</p> : <span className="text-xs text-neutral-500">
                     Helps you filter quicker later.
-                </span>
+                </span>}
             </label>
         </div>
     );

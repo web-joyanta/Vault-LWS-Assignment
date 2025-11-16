@@ -1,5 +1,5 @@
 
-const BookmarkUserInput = ({ bookmark, handleChange }) => {
+const BookmarkUserInput = ({ bookmark, handleChange, errors }) => {
     return (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* <!-- Username Input --> */}
@@ -14,15 +14,16 @@ const BookmarkUserInput = ({ bookmark, handleChange }) => {
                 <input
                     type="text"
                     name="username"
+                    required
+                    autocomplete="username"
                     value={bookmark.username}
                     onChange={handleChange}
                     placeholder="Enter username"
                     className="w-full bg-transparent text-base text-white placeholder:text-neutral-500 focus:outline-none"
-                    required
                 />
-                <span className="text-xs text-neutral-500"
-                >Use workspace or personal handle.</span
-                >
+                {errors.username ? <p className="text-red-400 text-sm">{errors.username}</p> : <span className="text-xs text-neutral-500"
+                >Use workspace or personal handle.</span>}
+
             </label>
 
             {/* <!-- Password Input --> */}
@@ -37,15 +38,17 @@ const BookmarkUserInput = ({ bookmark, handleChange }) => {
                 <input
                     type="password"
                     name="password"
+                    required
                     value={bookmark.password}
                     onChange={handleChange}
+                    autocomplete="password"
                     placeholder="Enter password"
                     className="w-full bg-transparent text-base text-white placeholder:text-neutral-500 focus:outline-none"
-                    required
+
                 />
-                <span className="text-xs text-neutral-500"
-                >Choose at least 6 characters.</span
-                >
+                {errors.password ? <p className="text-red-400 text-sm">{errors.password}</p> : <span className="text-xs text-neutral-500"
+                >Choose at least 6 characters.</span>}
+
             </label>
         </div>
     );

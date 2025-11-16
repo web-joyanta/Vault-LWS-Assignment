@@ -3,14 +3,14 @@ import ActionButton from "./bookmark/ActionButton";
 import BookmarkInput from "./bookmark/BookmarkInput";
 import BookmarkUserInput from "./bookmark/BookmarkUserInput";
 
-const BookmarkForm = () => {
-    
+const BookmarkForm = ({ handleAddBookmark, errors, setErrors }) => {
+
     const getCurrentDate = () => {
         const date = new Date();
         return date.toISOString().split("T")[0];
     };
 
-    const [bookmark, setBookmark] = useState({
+    const defaultBookMark = {
         id: crypto.randomUUID(),
         url: "",
         color: "#3b82f6",
@@ -18,18 +18,20 @@ const BookmarkForm = () => {
         username: "",
         password: "",
         createdAt: getCurrentDate(),
-    })
+    }
+
+    const [bookmark, setBookmark] = useState(defaultBookMark)
 
     const handleChange = (e) => {
         const name = e.target.name;
         let value = (e.target.value);
-        console.log(value);
 
         setBookmark({
             ...bookmark,
             [name]: value,
         })
     }
+
     return (
         <div className="max-w-7xl mx-auto mt-8 px-4">
             <form
@@ -49,10 +51,10 @@ const BookmarkForm = () => {
                     </p>
                 </div>
                 <div className="space-y-6">
-                    <BookmarkInput bookmark={bookmark} handleChange={handleChange} />
-                    <BookmarkUserInput bookmark={bookmark} handleChange={handleChange} />
+                    <BookmarkInput bookmark={bookmark} handleChange={handleChange} errors={errors}/>
+                    <BookmarkUserInput bookmark={bookmark} handleChange={handleChange} errors={errors}/>
                 </div>
-                <ActionButton />
+                <ActionButton handleAddBookmark={handleAddBookmark} bookmark={bookmark} setBookmark={setBookmark} getCurrentDate={getCurrentDate} setErrors={setErrors}/>
             </form>
         </div>
     );

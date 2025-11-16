@@ -3,23 +3,22 @@ import { useState } from 'react';
 const BookmarkCard = ({ data }) => {
     const { url, color, category, username, password } = data;
     const [showPassword, setShowPassword] = useState(false);
-    const [bookmarkData, setBookmarkData] = useState({
-        
-    })
 
     function parseUrl(url) {
         const clean = url.replace(/^https?:\/\//, '');
-        const domain = clean.split('.')[0];
+        const root = clean.split('/')[0];
+        const withoutWWW = root.replace(/^www\./, '');
+        const domain = withoutWWW.split('.')[0];
         const initials = domain
             .match(/[a-zA-Z]/g)
             .slice(0, 2)
             .map(l => l.toUpperCase())
             .join('');
-        const capitalized = domain.replace(/^./, c => c.toUpperCase());
+        const title = domain.replace(/^./, c => c.toUpperCase());
         return {
             logo: initials,
-            title: capitalized,
-            link: clean
+            title,
+            link: withoutWWW
         };
     }
     const { logo, title, link } = parseUrl(url);
