@@ -10,6 +10,7 @@ import bookmarkFormData from './data/BookmarkData.json';
 function App() {
   const [formData, setFormData] = useState(bookmarkFormData);
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState(""); // e.g., 'name-asc', 'name-desc', 'date-asc', 'date-desc'
   const [errors, setErrors] = useState({
     url: "",
     category: "",
@@ -17,26 +18,25 @@ function App() {
     password: ""
   });
 
-  const handleAddBookmark = (newBookMart) => {
-    const { url, category, username, password } = newBookMart;
+  const handleAddBookmark = (newBookmark) => {
+    const { url, category, username, password } = newBookmark;
 
     const newErrors = {};
     if (!url) newErrors.url = "Please enter a valid URL.";
-    else if (!/^https?:\/\//i.test(url)) {
-      newErrors.url = "URL must start with http://";
-    }
+    else if (!/^https?:\/\//i.test(url)) newErrors.url = "URL must start with http://";
     if (!category) newErrors.category = "Please select a category.";
     if (!username) newErrors.username = "Username cannot be empty.";
-    if (!password) newErrors.password = "Password must be at least 6 characters.";
-    else if (password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters long.";
-    }
+    if (!password || password.length < 6) newErrors.password = "Password must be at least 6 characters long.";
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    setFormData([...formData, newBookMart]);
+    // Add a date property for sorting by date
+    const bookmarkWithDate = { ...newBookmark, createdAt: new Date().toISOString() };
+
+    setFormData([...formData, bookmarkWithDate]);
     setErrors({ url: "", category: "", username: "", password: "" });
   };
 
@@ -49,15 +49,38 @@ function App() {
     );
   });
 
+  // Sorting logic
+ const sortedBookmarks = [...filteredBookmarks].sort((a, b) => {
+  const nameA = a.name || a.url; // fallback to URL
+  const nameB = b.name || b.url;
+
+  switch (sortOrder) {
+    case "name-asc":
+      return nameA.localeCompare(nameB);
+    case "name-desc":
+      return nameB.localeCompare(nameA);
+    case "date-asc":
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    case "date-desc":
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    default:
+      return 0;
+  }
+});
+
+  const handleSortChange = (value) => {
+    setSortOrder(value);
+  };
+
   return (
     <>
       <Header />
       <BookmarkForm handleAddBookmark={handleAddBookmark} errors={errors} setErrors={setErrors} />
       <main className="p-8">
         <div className="max-w-7xl mx-auto space-y-10 px-4">
-          <SearchAndSort setSearchTerm={setSearchTerm} />
-          {filteredBookmarks.length > 0 ? (
-            <BookmarkGrid formData={filteredBookmarks} />
+          <SearchAndSort setSearchTerm={setSearchTerm} onSortChange={handleSortChange} />
+          {sortedBookmarks.length > 0 ? (
+            <BookmarkGrid formData={sortedBookmarks} />
           ) : (
             <NotFound />
           )}
