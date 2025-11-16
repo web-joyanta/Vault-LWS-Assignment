@@ -13,6 +13,7 @@ const BookmarkUserInput = ({ bookmark, handleChange }) => {
                 </span>
                 <input
                     type="text"
+                    name="username"
                     value={bookmark.username}
                     onChange={handleChange}
                     placeholder="Enter username"
@@ -35,6 +36,7 @@ const BookmarkUserInput = ({ bookmark, handleChange }) => {
                 </span>
                 <input
                     type="password"
+                    name="password"
                     value={bookmark.password}
                     onChange={handleChange}
                     placeholder="Enter password"

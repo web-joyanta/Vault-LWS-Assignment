@@ -1,5 +1,27 @@
 
 const Header = () => {
+    const getGreetingBD = () => {
+        const now = new Date();
+        // BD time hour
+        const hour = Number(
+            now.toLocaleString("en-US", { hour: "numeric", hour12: false, timeZone: "Asia/Dhaka" })
+        );
+
+        if (hour >= 5 && hour < 12) return "Morning";
+        if (hour >= 12 && hour < 15) return "Noon";
+        if (hour >= 15 && hour < 18) return "Evening";
+        return "Night";
+    }
+
+    const getFormattedDateBD = () => {
+        return new Date().toLocaleDateString("en-US", {
+            weekday: "long",
+            month: "short",
+            day: "numeric",
+            timeZone: "Asia/Dhaka"
+        });
+    }
+
     return (
         <header
             className="border-b border-neutral-800 bg-linear-to-b from-neutral-950 via-neutral-900/80 to-transparent"
@@ -17,7 +39,7 @@ const Header = () => {
                         className="flex flex-col gap-3 md:flex-row md:items-center"
                     >
                         <h1 className="text-4xl font-semibold tracking-tight">
-                            Good Morning, World!
+                            Good {getGreetingBD()}, World!
                         </h1>
                         <span
                             className="inline-flex items-center gap-2 rounded-full border border-neutral-800/80 bg-neutral-900/70 px-4 py-1 text-xs font-medium text-neutral-300"
@@ -25,7 +47,7 @@ const Header = () => {
                             <span
                                 className="h-2 w-2 rounded-full bg-emerald-400"
                             ></span>
-                            Monday, Nov 10
+                            {getFormattedDateBD()}
                         </span>
                     </div>
                     <p className="text-sm text-neutral-400 max-w-2xl">
